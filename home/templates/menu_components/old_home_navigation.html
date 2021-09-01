@@ -1,0 +1,57 @@
+{% load static %}
+<div class="w-full text-white bg-main-color">
+    <div x-data="{ open: false }"
+        class="container mx-auto px-3 py-1 flex justify-between items-center">
+        <!-- <div class="flex-col flex-grow pb-5 md:pb-0 hidden md:flex md:justify-start md:flex-row">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.06298 10.063 6.27212 12.2721 6.27212C14.4813 6.27212 16.2721 8.06298 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16755 11.1676 8.27212 12.2721 8.27212C13.3767 8.27212 14.2721 9.16755 14.2721 10.2721Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.39409 5.48178 3.79417C8.90918 0.194243 14.6059 0.054383 18.2059 3.48178C21.8058 6.90918 21.9457 12.6059 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.97318 6.93028 5.17324C9.59603 2.3733 14.0268 2.26452 16.8268 4.93028C19.6267 7.59603 19.7355 12.0268 17.0698 14.8268Z" fill="currentColor" />
+            </svg>
+            <span class="mx-1 text-">Ayer Keroh</span>
+        </div> -->
+        <div class="flex-col flex-grow pb-5 md:pb-0 hidden md:flex md:justify-start md:flex-row">
+            <a href="{% url 'home' %}"
+                class="text-lg font-semibold tracking-widest uppercase rounded-lg focus:outline-none focus:shadow-outline">ohmyfoot</a>
+
+        </div>
+
+        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-5 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+        <div @click.away="open = false" class="relative" x-data="{ open: false }">
+            <button @click="open = !open" class="flex flex-row items-center space-x-2 w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent hover:bg-blue-800 md:w-auto md:inline md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-blue-800 focus:outline-none focus:shadow-outline">
+                {% if user.is_authenticated %}
+                <span> Welcome Back, {{ user }}</span>
+                {% endif %}
+                <img class="inline h-6 rounded-full"
+                    src="{% static 'images/avatar-placeholder.png' %}">
+                <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
+                    class="inline w-4 h-4 transition-transform duration-200 transform">
+                    <path fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            
+            <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95"
+                class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+                <div class="py-2 bg-white text-blue-800 text-sm rounded-sm border border-main-color shadow-sm">
+                    {% if user.is_authenticated %}
+                    <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                    href="{% url 'profile' user_id=user.id %}">Profile</a>
+                    <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                        href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                    <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                    href="{% url 'register' %}">Register</a>
+                    <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                        href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </nav>
+    </div>
+</div>

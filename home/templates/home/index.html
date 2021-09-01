@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      Tailwind Starter Template - Landing Page Template: Tailwind Toolbox
+    </title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+
+    <!--Replace with your tailwind.css once created-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+
+    <!--Replace with your fonts once created-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+
+    <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+    <style>
+      .gradient {
+        background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+      }
+    </style>
+  </head>
+  <header>
+    {% include 'home/home_components/navbar.html' %}
+    {% include 'home/home_components/nav_hero.html' %}
+  </header>
+  <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
+    {% include 'home/home_components/section.html' %}
+  </body>
+  <footer>
+    {% include 'home/home_components/footer_hero.html' %}
+    {% include 'home/home_components/footer.html' %}
+    <script type="text/javascript" src="{% static 'js/color_toggle.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/nav_menu.js' %}"></script>
+  </footer>
+</html>

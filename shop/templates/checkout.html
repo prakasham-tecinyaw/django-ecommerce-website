@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+    {% include 'base.html' %}
+  <body class="bg-gray-100 flex flex-col min-h-screen ">
+      <header>
+        {% include 'menu_components/home_navigation.html' %}
+      </header>
+        <main class="flex-grow">
+        <div class="container mx-auto px-6">
+            <!-- <h3 class="text-gray-700 text-2xl font-medium">Checkout</h3> -->
+            <div class="flex flex-col lg:flex-row mt-8">
+                <div class="w-full lg:w-1/2 order-2">
+                    <div class="leading-loose">
+                        <p class="text-gray-800 font-medium">Customer information</p>
+                        <div class="flex items-center justify-between mt-8">
+                          <button class="flex items-center text-gray-700 text-sm font-medium rounded hover:underline focus:outline-none">
+                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
+                            <a class="" href="{% url 'cart-view' %}" data-test="Link"><span class="mx-2">Back step</span></a>
+                          </button>
+                        </div>
+                        <form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
+                          <div class="">
+                            <label class="block text-sm text-gray-00" for="cus_name">Name</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name">
+                          </div>
+                          <div class="mt-2">
+                            <label class="block text-sm text-gray-600" for="cus_email">Phone Number</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Your Phone Number" aria-label="Phone Number">
+                          </div>
+                          <div class="mt-2">
+                            <label class=" block text-sm text-gray-600" for="cus_email">Address</label>
+                            <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Street" aria-label="Address">
+                          </div>
+                          <div class="mt-2">
+                            <label class="hidden text-sm block text-gray-600" for="cus_email">City</label>
+                            <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="City" aria-label="City">
+                          </div>
+                          <div class="mt-2">
+                            <label class="hidden block text-sm text-gray-600" for="cus_email">Zip</label>
+                            <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email"  name="cus_email" type="text" required="" placeholder="Zip" aria-label="Zip">
+                          </div>
+                          <p class="mt-4 text-gray-800 font-medium">Payment information</p>
+                          <div class="">
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio" name="delivery_method" value="cash_on_delivery">
+                                <span class="ml-2">Cash on Delivery</span>
+                            </label>
+                          </div>
+                          <div class="flex items-center justify-between mt-8">
+                            <button class="flex items-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                                <span>Place Order</span>
+                                <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="w-full mb-8 flex-shrink-0 order-1 lg:w-1/2 lg:mb-0 lg:order-2">
+                    <div class="flex justify-center lg:justify-end">
+                        <div class="border rounded-md max-w-md w-full px-4 py-3">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-gray-700 font-medium"> Total Orders {{ order.get_cart_items}}</h3>
+                            </div>
+                            {% for item in items %}
+                            <div class="flex justify-between mt-6">
+                                <div class="flex">
+                                    <img class="h-20 w-20 object-cover rounded" src="{{item.product_media.url}}" alt="{{item.product_title}}">
+                                    <div class="mx-3">
+                                        <h3 class="text-gray-700">{{item.product_title}}</h3>
+                                        <div class="flex items-center mt-2">
+                                            <span class="text-sm text-gray-600">Quantity: {{item.product_qty}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                              <span class="text-gray-600">RM {{item.get_total}}</span>
+                            </div>
+                            {% endfor %}
+                            <div class="flex justify-between mt-6">
+                              <div class="flex">
+                                <div class="mx-3">
+                                  <h3 class="font-bold uppercase">Grand Total: {{order.get_cart_total}}</h3>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="w-full">
+        {% include 'menu_components/page_footer.html' %}
+        <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+    </footer>
+</body>
+</html>

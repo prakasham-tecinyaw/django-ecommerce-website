@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+    {% include 'base.html' %}
+  <body class="bg-gray-100 flex flex-col min-h-screen ">
+      <header>
+        {% include 'menu_components/home_navigation.html' %}
+        {% include 'menu_components/shop_header.html' %}
+      </header>
+        <main class="flex-grow">
+          <div class="container mx-auto px-6">
+            <h3 class="text-gray-700 text-2xl font-medium">Pick Your Food</h3>
+            <span class="mt-3 text-sm text-gray-500">Total Available Menu : {{ product_count }}</span>
+
+            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+              {% for obj in data %}
+              <div class=" p-2">
+                  <div class="bg-white shadow-lg hover:shadow-xl rounded-lg ">
+                    <div class="flex flex-col items-center">
+                      <div class="flex flex-col items-center">
+                        <div class="swiper flex overflow-x-scroll ">
+                          <img class="w-full h-1/2 object-cover bg-gray-300" src="{{ obj.media_1.url }}" id="slide1">
+                          <img class="w-full h-1/2 object-cover bg-gray-300" src="{{ obj.media_2.url }}" id="slide2">
+                          <img class="w-full h-1/2 object-cover bg-gray-300" src="{{ obj.media_3.url }}" id="slide3">
+                        </div>
+                      </div>
+                    </div>
+                  <div class="flex justify-between items-start px-2 pt-2">
+                      <div class="p-2 flex-grow">
+                      <h1 class="font-medium text-xl font-poppins">{{ obj.product_title }}</h1>
+                      <p class="text-gray-500 font-nunito">{{ obj.product_cat }}</p>
+                      </div>
+                      <div class="p-2 text-right">
+                      <div class="text-teal-500 font-semibold text-lg font-poppins">{{ obj.product_price }}</div>
+                      {% comment %} <div class="text-xs text-gray-500 line-through font-poppins">{{ obj.media_gallery }}</div> {% endcomment %}
+                      </div>
+                  </div>
+                  <div class="flex justify-center items-center px-2 pb-2">
+                      <div class="w-1/2 p-2">
+                      <button class="block w-full bg-white hover:bg-gray-100 text-teal-500 border-2 border-teal-500 px-3 py-2 rounded uppercase font-poppins font-medium">
+                          <svg viewBox="0 0 24 24" class="inline w-4 h-4">
+                          <path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z" />
+                          </svg> Details
+                      </button>
+                      </div>
+                      <div class="w-1/2 p-2">
+                      <button data-product={{obj.id}} data-action="add" class="block w-full bg-white hover:bg-gray-100 text-teal-500 border-2 border-teal-500 px-3 py-2 rounded uppercase font-poppins font-medium update-cart">
+                          Add to cart 
+                      </button>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% include 'menu_components/page_pagination.html' %}
+          </div>
+        </main>
+        <footer class=" w-full">
+            {% include 'menu_components/page_footer.html' %}
+            <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+            <script>
+              var user = '{{request.user}}'
+              function getToken(name) {
+                  let cookieValue = null;
+                  if (document.cookie && document.cookie !== '') {
+                      const cookies = document.cookie.split(';');
+                      for (let i = 0; i < cookies.length; i++) {
+                          const cookie = cookies[i].trim();
+                          // Does this cookie string begin with the name we want?
+                          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                              break;
+                          }
+                      }
+                  }
+                  return cookieValue;
+              }
+              const csrftoken = getToken('csrftoken');
+            </script>
+        </footer>
+    </body>
+</html>
+
+
+
+
+
+
+

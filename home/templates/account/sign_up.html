@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+    {% include 'base.html' %}
+
+  <body class="bg-gray-100 flex flex-col min-h-screen ">
+      <header>
+      </header>
+        <main class="flex-grow">
+          <div class="flex min-h-screen bg-white">
+            <div class="w-1/2 bg-cover md:block hidden" style="background-image:  url(https://images.unsplash.com/photo-1520243947988-b7b79f7873e9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDd8fGJsYWNrJTIwZm9yZXN0fGVufDB8fDB8eWVsbG93&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60)"></div>
+            <div class="md:w-1/2 max-w-lg mx-auto my-24 px-4 py-5 shadow-none">
+                <div class="text-left p-0 font-sans">
+                    <h1 class=" text-gray-800 text-3xl font-medium">Create an account.</h1>
+                    {% comment %} <h3 class="p-1 text-gray-700">Free forever. No payment needed.</h3> {% endcomment %}
+                </div>
+
+                <form class="p-0 form-signin" method="post">
+                    {% csrf_token %}
+                    <div class="mt-5">
+                        <input type="email" name="email" class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent " placeholder="Enter Email" required="true">
+                    </div>
+                    <div class="mt-5">
+                        <input type="text" name="username" class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent " placeholder="Enter Username" required="true">
+                    </div>
+                    <div class="mt-5">
+                        <input type="password" name="password1" class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent  " placeholder="Enter Password" required="true">
+                    </div>
+                    <div class="mt-5">
+                        <input type="password" name="password2" class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent  " placeholder="Confirm Password" required="true">
+                    </div>
+                    {% for field in registration_form %}
+                    <p>
+                    {% for error in field.errors %}
+                    <p>
+                    <p style="color:red"> {{ error }} </p>
+                    {% endfor %}
+                    </p>
+                    {% endfor %}
+                    {% if registration_form.non_field_errors %}
+
+                    <div style="color:red">
+                        <p>{{ registration_form.non_field_errors }}
+                    </div>
+
+                    {% endif %}
+                    <div class="mt-10">
+                        <input type="submit" value="Sign up with email" class="py-3 bg-green-500 text-white w-full rounded hover:bg-green-600">
+                    </div>
+                </form>
+                <a class="" href="/login" data-test="Link"><span class="block  p-5 text-center text-gray-800  text-xs ">Already have an account?</span></a>
+            </div>
+          </div>
+        </main>
+        <footer class=" w-full">
+            {% include 'menu_components/page_footer.html' %}
+            <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+        </footer>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
